@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+{% block title %}Booking{% endblock %}
+
+{% block content %}
+<div class="container my-5" style="max-width: 850px;">
+
+  <h2 class="text-center mb-4">Book an Appointment</h2>
+
+  {% if messages %}
+    {% for message in messages %}
+      <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+    {% endfor %}
+  {% endif %}
+
+  <div class="card shadow-sm border-0">
+    <div class="card-body p-4">
+
+      <form method="POST" id="bookingForm">
+        {% csrf_token %}
+
+        <div class="row g-3">
+
+          <div class="col-md-6">
+            <label class="form-label">Patient Name *</label>
+            <input type="text" name="patient_name" class="form-control" required>
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Phone *</label>
+            <input type="text" name="phone" class="form-control" required>
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Email</label>
+            <input type="email" name="email" class="form-control">
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Date *</label>
+            <input type="date" name="date" class="form-control" required>
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Department</label>
+            <select name="department" class="form-select" id="departmentSelect">
+              <option value="">Select Department</option>
+              {% for d in departments %}
+                <option value="{{ d.id }}">{{ d.name }}</option>
+              {% endfor %}
+            </select>
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Doctor</label>
+            <select name="doctor" class="form-select" id="doctorSelect" disabled>
+              <option value="">Select Doctor</option>
+            </select>
+            <small class="text-muted" id="doctorHelp"></small>
+          </div>
+
+          <div class="col-12">
+            <label class="form-label">Message</label>
+            <textarea name="message" rows="4" class="form-control"></textarea>
+          </div>
+
+          <div class="col-12 d-grid">
+            <button type="submit" class="btn btn-primary btn-lg">
+              Submit Booking
+            </button>
+          </div>
+
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  const deptSelect = document.getElementById("departmentSelect");
+  const doctorSelect = document.getElementById("doctorSelect");
+  const doctorHelp = document.getElementById("doctorHelp");
+
+  function resetDoctors(msg="") {
+    doctorSelect.innerHTML = `<option value="">Select Doctor</option>`;
+    doctorSelect.disabled = true;
+    doctorHelp.textContent = msg;
+  }
+
+  async function loadDoctors(deptId) {
+    resetDoctors("Loading doctors...");
+    if (!deptId) { resetDoctors(""); return; }
+
+    try {
+      const res = await fetch(`/api/doctors/?department=${deptId}`);
+      const data = await res.json();
+
+      doctorSelect.innerHTML = `<option value="">Select Doctor</option>`;
+
+      (data.results || []).forEach(doc => {
+        const opt = document.createElement("option");
+        opt.value = doc.id;
+        opt.textContent = doc.name;
+        doctorSelect.appendChild(opt);
+      });
+
+      doctorSelect.disabled = false;
+      doctorHelp.textContent = (data.results && data.results.length) ? "" : "No doctors in this department.";
+    } catch (e) {
+      resetDoctors("Failed to load doctors.");
+      console.log(e);
+    }
+  }
+
+  deptSelect.addEventListener("change", (e) => {
+    loadDoctors(e.target.value);
+  });
+
+  resetDoctors("");
+</script>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}About{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+  <h2 class="fw-bold mb-3">About City Hospital</h2>
+  <p class="text-muted">
+    City Hospital provides comprehensive healthcare services with a team of specialists,
+    advanced diagnostics and emergency support. Our mission is patient-first care with safety and trust.
+  </p>
+
+  <div class="row g-3 mt-2">
+    <div class="col-md-4">
+      <div class="card p-3 shadow-sm">
+        <h5 class="fw-bold">24/7 Emergency</h5>
+        <p class="text-muted mb-0">Round-the-clock emergency care and ambulance support.</p>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card p-3 shadow-sm">
+        <h5 class="fw-bold">Specialists</h5>
+        <p class="text-muted mb-0">Experienced doctors across major departments.</p>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card p-3 shadow-sm">
+        <h5 class="fw-bold">Modern Facilities</h5>
+        <p class="text-muted mb-0">Advanced labs, imaging and safe procedure rooms.</p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

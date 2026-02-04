@@ -1,0 +1,64 @@
+/* Basic page layout: footer always at bottom, no weird gaps */
+html,
+body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  background: #f8f9fa;
+}
+
+/* Content area */
+.page-content {
+  flex: 1;
+}
+
+/* Navbar */
+#main-nav {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.navbar-brand {
+  font-size: 28px;
+  letter-spacing: 0.5px;
+}
+
+/* Active nav link highlight */
+.nav-link.active {
+  font-weight: 800;
+  text-decoration: underline;
+}
+
+/* Footer (NOT fixed) */
+.site-footer {
+  margin-top: auto;
+}
+
+/* Home Hero / Carousel */
+.hero-img {
+  height: 35vh;
+  /* Ultra-reduced for zero-scroll fit */
+  object-fit: cover;
+  /* keeps image nice */
+}
+
+/* Doctor cards */
+.doctor-img {
+  height: 260px;
+  width: 100%;
+  object-fit: cover;
+}
+
+.doctor-card {
+  border-radius: 14px;
+  overflow: hidden;
+  transition: transform 0.2s ease;
+}
+
+.doctor-card:hover {
+  transform: translateY(-5px);
+}

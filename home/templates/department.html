@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}Departments{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+
+  <h1 class="text-center fw-bold mb-4">Our Departments</h1>
+  <hr class="mb-5">
+
+  {% if departments %}
+    <div class="row justify-content-center g-4">
+      {% for dept in departments %}
+        <div class="col-12 col-md-10 col-lg-8">
+          <div class="card shadow-sm border-0 doctor-card">
+            <div class="card-body p-4 text-center" style="background:#198754; color:white; border-radius:14px;">
+              <h2 class="fw-bold mb-3">{{ dept.name }}</h2>
+              <p class="mb-0" style="max-width: 700px; margin:auto;">
+                {{ dept.description }}
+              </p>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p class="text-center text-muted mt-4">No departments available.</p>
+  {% endif %}
+
+</div>
+{% endblock %}

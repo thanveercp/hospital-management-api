@@ -5,7 +5,9 @@ from .models import Department, Doctor, Booking
 
 
 def home_page(request):
-    return render(request, "index.html")
+    doctors = Doctor.objects.all().order_by("id")  # You might want to limit this, e.g., [:4]
+    departments = Department.objects.all().order_by("name")
+    return render(request, "index.html", {"doctors": doctors, "departments": departments})
 
 
 def about_page(request):

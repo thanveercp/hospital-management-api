@@ -1,0 +1,1 @@
+web: gunicorn Hospital_Management.wsgi:application

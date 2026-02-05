@@ -1,0 +1,22 @@
+{
+    "builds": [
+        {
+            "src": "Hospital_Management/wsgi.py",
+            "use": "@vercel/python",
+            "config": {
+                "maxLambdaSize": "15mb",
+                "runtime": "python3.12"
+            }
+        }
+    ],
+    "routes": [
+        {
+            "src": "/static/(.*)",
+            "dest": "/static/$1"
+        },
+        {
+            "src": "/(.*)",
+            "dest": "Hospital_Management/wsgi.py"
+        }
+    ]
+}
